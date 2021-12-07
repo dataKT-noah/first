@@ -1,0 +1,71 @@
+# My first supervised learning in real world
+
+0. written numeber
+ (1, 2, 3) * 10 each numebers
+ convert jpeg or png
+ filename 1-1, 1-2, .....1-10, ......3-10
+
+
+1. import module
+import os
+import sklearn.datasets
+import sklearn.svm
+import PIL.Image
+import numpy
+
+
+2. creating function - image data to numerrical data -
+def imageTOData(filename):
+    grayImage = PIL.Image.open(filename).convert("L")
+    grayImage = grayImage.resize((8,8), PIL.Image.ANTIALIAS)
+    
+    numImage = numpy.asarray(grayImage, dtype = float)
+    numImage = numpy.floor(16 - 16 * (numImage / 256))
+    numImage = numImage.flatten()
+    
+    return numImage
+    
+    
+3. create train_x
+x = []
+for i in range(1, 4):
+  for j in range(1,6):
+    data_file = ".../..." + str(i)+ "-" + str(j) +".jpeg"
+    data_p =imageTOData(data_file)
+    x.append(data_p)
+    
+ 
+4. labeling train_y
+y = []
+for i in range(1, 4):
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  y.append(i)
+  
+
+5. Model and fit
+svm_p = sklearn.svm.SVC(gamma = 0.01)
+svm_p.fit(x, y)
+
+
+6. predict
+test_data = imageTOData("/../../filename.jpeg")
+svm_p.predict([test_data])
+
+
+7. evalution  Now I studying!!
+
+
+Thank you for watching!!
+
+
+
+
+  
